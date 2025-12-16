@@ -1,0 +1,5 @@
+name: TeamMG
+version: '1.0-SNAPSHOT'
+main: io.github.jatar.teamMG.TeamMG
+api-version: '1.21'
+prefix: [TeamMG]
