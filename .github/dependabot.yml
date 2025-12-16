@@ -6,7 +6,8 @@
 version: 2
 updates:
   - package-ecosystem: "gradle" # See documentation for possible values
-    dependency-name: "io.github.jatar"
+    allow:
+      dependency-name: "io.github.jatar"
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
