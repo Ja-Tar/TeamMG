@@ -10,11 +10,21 @@ public final class TeamMG extends JavaPlugin {
     public void onEnable() {
         getComponentLogger().debug(Component.text("Uruchamianie..."));
 
-        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
-            commands.registrar().register(TeamCommands.createGetTeamComm("druzyna"), "Stwórz drużynę");
-        });
+        InventoryListeners.setupInventoryNameList();
+        setupCommands();
+        setupListeners();
 
         getComponentLogger().debug(Component.text("Komendy dodane!"));
 
+    }
+
+    void setupCommands() {
+        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
+            commands.registrar().register(TeamCommands.createGetTeamComm("druzyna"), "Stwórz drużynę");
+        });
+    }
+
+    void setupListeners() {
+        getServer().getPluginManager().registerEvents(new InventoryListeners.StopItemsOut(), this);
     }
 }
