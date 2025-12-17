@@ -17,9 +17,4 @@ public final class TeamMG extends JavaPlugin {
         getComponentLogger().debug(Component.text("Komendy dodane!"));
 
     }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
 }

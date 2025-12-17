@@ -20,8 +20,6 @@ public class TeamCommands {
                     final CommandSender sender = ctx.getSource().getSender();
                     final Player player = (Player)sender;
 
-                    sender.sendPlainMessage("This plugin has a command. Your username: " + sender.getName());
-
                     NoTeamInv noTeamInv = new NoTeamInv();
                     player.openInventory(noTeamInv.getInventory());
 
