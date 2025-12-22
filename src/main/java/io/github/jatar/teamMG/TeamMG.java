@@ -1,29 +1,36 @@
 package io.github.jatar.teamMG;
 
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import net.kyori.adventure.text.Component;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import redempt.redlib.commandmanager.CommandHook;
+import redempt.redlib.commandmanager.CommandParser;
+import redempt.redlib.inventorygui.InventoryGUI;
+
+import java.util.logging.Logger;
 
 public final class TeamMG extends JavaPlugin {
+    private static Logger logger;
+
+    public static Logger getLog() {
+        return logger;
+    }
 
     @Override
     public void onEnable() {
-        getComponentLogger().debug(Component.text("Uruchamianie..."));
+        getLogger().info("Uruchamianie...");
 
-        setupCommands();
-        setupListeners();
+        new CommandParser(this.getResource("command.rdcml")).parse().register("teammg", this);
 
-        getComponentLogger().debug(Component.text("Komendy dodane!"));
+        getLogger().info("Komendy dodane!");
 
     }
 
-    void setupCommands() {
-        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
-            commands.registrar().register(TeamCommands.createGetTeamComm("druzyna"), "Stwórz drużynę");
-        });
-    }
-
-    void setupListeners() {
-        getServer().getPluginManager().registerEvents(new InventoryListeners.StopItemsOut(), this);
+    @CommandHook("druzyna")
+    public void createGetTeamComm(CommandSender sender) {
+        Player player = (Player) sender;
+        getLogger().info("TTEST");
+        InventoryGUI gui = TeamInventory.NoTeamInv();
+        gui.open(player);
     }
 }
