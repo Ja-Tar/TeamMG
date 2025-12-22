@@ -1,0 +1,23 @@
+name: Build Minecraft Mod
+
+on:
+  release:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+          fetch-depth: 0
+
+    - name: Compile Mod
+      uses: xxanqw/compilation@v3
+      
+    - uses: svenstaro/upload-release-action@v2
+      with:
+          file: build/libs/*
+          file_glob: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
