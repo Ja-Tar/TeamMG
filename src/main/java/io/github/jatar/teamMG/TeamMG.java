@@ -1,5 +1,6 @@
 package io.github.jatar.teamMG;
 
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,7 @@ import static io.github.jatar.teamMG.TeamInventory.*;
 
 public final class TeamMG extends JavaPlugin {
     private static Logger logger;
+    static MiniMessage mm = MiniMessage.miniMessage();
 
     public static Logger getLog() {
         return logger;
