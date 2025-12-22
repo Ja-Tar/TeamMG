@@ -11,6 +11,7 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import static io.github.jatar.teamMG.TeamMG.mm;
 
 @SuppressWarnings({"UnstableApiUsage"})
 public class TeamDialogs {
-    public static Dialog createTeamDialog() {
+    public static @NonNull Dialog createTeamDialog() {
         Component warning = mm.deserialize("<color:red><bold><underlined>UWAGA!!! Tego nie można zmienić!");
 
         return Dialog.create(builder -> builder.empty()

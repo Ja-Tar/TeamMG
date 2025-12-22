@@ -4,6 +4,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jspecify.annotations.NonNull;
 import redempt.redlib.commandmanager.CommandHook;
 import redempt.redlib.commandmanager.CommandParser;
 import redempt.redlib.inventorygui.InventoryGUI;
@@ -30,7 +31,7 @@ public final class TeamMG extends JavaPlugin {
 
     }
 
-    private void openGUI(CommandSender sender, InventoryGUI gui) {
+    private void openGUI(CommandSender sender, @NonNull InventoryGUI gui) {
         Player player = (Player) sender;
         gui.open(player);
     }

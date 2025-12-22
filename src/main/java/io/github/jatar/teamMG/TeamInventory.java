@@ -19,7 +19,7 @@ public class TeamInventory {
         return item;
     }
 
-    public static InventoryGUI NoTeamInv() {
+    public static @NonNull InventoryGUI NoTeamInv() {
         InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
 
         ItemButton buttonCreateTeam = ItemButton.create(
