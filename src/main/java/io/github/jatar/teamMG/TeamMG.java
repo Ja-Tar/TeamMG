@@ -9,6 +9,8 @@ import redempt.redlib.inventorygui.InventoryGUI;
 
 import java.util.logging.Logger;
 
+import static io.github.jatar.teamMG.TeamInventory.*;
+
 public final class TeamMG extends JavaPlugin {
     private static Logger logger;
 
@@ -26,11 +28,13 @@ public final class TeamMG extends JavaPlugin {
 
     }
 
+    private void openGUI(CommandSender sender, InventoryGUI gui) {
+        Player player = (Player) sender;
+        gui.open(player);
+    }
+
     @CommandHook("druzyna")
     public void createGetTeamComm(CommandSender sender) {
-        Player player = (Player) sender;
-        getLogger().info("TTEST");
-        InventoryGUI gui = TeamInventory.NoTeamInv();
-        gui.open(player);
+        openGUI(sender, NoTeamInv());
     }
 }

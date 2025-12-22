@@ -10,9 +10,15 @@ import redempt.redlib.itemutils.ItemBuilder;
 public class TeamInventory {
     public static InventoryGUI NoTeamInv() {
         InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
-        ItemButton button = ItemButton.create(new ItemBuilder(Material.EMERALD_BLOCK)
-                .setName("Click me!"), TeamButtonFunctions::createNewTeam);
-        gui.addButton(button, 13);
+
+        ItemButton buttonCreateTeam = ItemButton.create(new ItemBuilder(Material.LIME_WOOL)
+                .setName("STWÓRZ DRUŻYNĘ"), TeamButtonFunctions::createNewTeam);
+        ItemButton buttonFindTeam = ItemButton.create(new ItemBuilder(Material.COMPASS)
+                .setName("ZNAJDŹ ISTNIEJĄCĄ"), TeamButtonFunctions::searchForTeam);
+
+        gui.addButton(buttonCreateTeam, 11);
+        gui.addButton(buttonFindTeam, 15);
+
         return gui;
     }
 }
