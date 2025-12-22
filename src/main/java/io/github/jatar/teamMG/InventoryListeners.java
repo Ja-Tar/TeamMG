@@ -1,36 +1,47 @@
 package io.github.jatar.teamMG;
 
-import com.destroystokyo.paper.utils.PaperPluginLogger;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.InventoryHolder;
 import org.jspecify.annotations.NonNull;
 
-import java.util.Set;
+import java.util.*;
+import java.util.function.Supplier;
 
 import static org.bukkit.Bukkit.getLogger;
 
 public class InventoryListeners {
-    public Set<String> inventoryNameList;
+    public static final Set<String> inventoryNameList = getInventoryNameList();
 
     public static class StopItemsOut implements Listener {
         @EventHandler
         public void onInventoryEvent(@NonNull InventoryClickEvent event) {
-            //if (event.getClickedInventory()) {
-
-            //}
+            getLogger().info(event.getView().title());
         }
     }
 
-    public static void setupInventoryNameList() {
-        for (int i = 0; i < TeamInventory.class.getClasses().length; i++) {
-            final Class<?> invClass = TeamInventory.class.getClasses()[i];
-            if (TeamInventory.TeamInv.class.isAssignableFrom(invClass)) {
-                getLogger().info();
+    public static Set<String> getInventoryNameList() {
+        Set<String> invNames = new HashSet<>();
+
+        for (Class<?> someClass : TeamInventory.class.getClasses()) {
+            if (!TeamInventory.TeamInv.class.isAssignableFrom(someClass)) continue;
+            try {
+                // konwencja: pole nazywa się INV_NAME i jest public static final String
+                java.lang.reflect.Field f = someClass.getField("INV_NAME");
+                if (f.getType() == String.class && java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
+                    String name = (String) f.get(null); // static -> null jako receiver
+                    invNames.add(name);
+                } else {
+                    getLogger().warning("Pole INV_NAME ma nieprawidłowy typ lub nie jest static w " + someClass.getName());
+                }
+            } catch (NoSuchFieldException e) {
+                // pole nie istnieje -> pomiń (możesz logować, jeżeli chcesz)
+                // getLogger().info("Brak INV_NAME w " + someClass.getName());
+            } catch (IllegalAccessException e) {
+                getLogger().warning("Brak dostępu do INV_NAME w " + someClass.getName());
             }
         }
+
+        return invNames;
     }
 }

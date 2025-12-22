@@ -12,16 +12,16 @@ import static org.bukkit.Bukkit.createInventory;
 
 public class TeamInventory {
     public static abstract class TeamInv implements InventoryHolder {
-        public String invName;
+        public static String INV_NAME;
     }
 
     public static class NoTeamInv extends TeamInv {
         private final Inventory inventory;
-        public final String invName = "Drużyna:";
+        public static final String INV_NAME = "Drużyna:";
 
         public NoTeamInv() {
             // Create an Inventory with 9 slots, `this` here is our InventoryHolder.
-            this.inventory = createInventory(this, 27, Component.text(this.invName));
+            this.inventory = createInventory(this, 27, Component.text(INV_NAME));
         }
 
         @Override

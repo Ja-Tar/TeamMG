@@ -10,7 +10,6 @@ public final class TeamMG extends JavaPlugin {
     public void onEnable() {
         getComponentLogger().debug(Component.text("Uruchamianie..."));
 
-        InventoryListeners.setupInventoryNameList();
         setupCommands();
         setupListeners();
 
