@@ -7,8 +7,8 @@ import io.papermc.paper.registry.data.dialog.action.DialogAction;
 import io.papermc.paper.registry.data.dialog.body.DialogBody;
 import io.papermc.paper.registry.data.dialog.input.DialogInput;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
-import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickCallback;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.jspecify.annotations.NonNull;
@@ -19,18 +19,19 @@ import static io.github.jatar.teamMG.TeamMG.mm;
 
 @SuppressWarnings({"UnstableApiUsage"})
 public class TeamDialogs {
-    public static @NonNull Dialog createTeamDialog() {
-        Component warning = mm.deserialize("<color:red><bold><underlined>UWAGA!!! Tego nie można zmienić!");
+    public static @NonNull Dialog createTeamDialog(String wrongInfo) {
+        Component teamCommandNameLabel = mm.deserialize("ID drużyny (<color:red><bold><underlined>tego nie da się zmienić<reset>, bez spacji)");
+        Component wrongText = mm.deserialize(wrongInfo);
 
         return Dialog.create(builder -> builder.empty()
                 .base(DialogBase.builder(Component.text("Tworzenie nowej drużyny:", NamedTextColor.GREEN))
                         .body(
                                 List.of(
-                                        DialogBody.plainMessage(warning)
+                                        DialogBody.plainMessage(wrongText)
                                 )
                         )
                         .inputs(List.of(
-                                DialogInput.text("teamCommandName", Component.text("ID drużyny (bez spacji, bez wielkich liter)"))
+                                DialogInput.text("teamCommandName", teamCommandNameLabel)
                                         .width(300)
                                         .maxLength(30)
                                         .build(),
@@ -45,7 +46,10 @@ public class TeamDialogs {
                                 Component.text("Zapisz", TextColor.color(0x00ff00)),
                                 null,
                                 100,
-                                DialogAction.customClick(Key.key("papermc:user_input/confirm"), null)
+                                DialogAction.customClick(TeamDialogCallbacks::acceptNewTeamDialog, ClickCallback.Options.builder()
+                                        .uses(1) // Set the number of uses for this callback. Defaults to 1
+                                        .lifetime(ClickCallback.DEFAULT_LIFETIME) // Set the lifetime of the callback. Defaults to 12 hours
+                                        .build())
                         ),
                         ActionButton.create(
                                 Component.text("Anuluj", TextColor.color(0xff0000)),
