@@ -27,8 +27,6 @@ public class TeamDialogCallbacks {
                     Placeholder.component("view-name", Component.text(teamName))
             );
             // ADD HERE COMMANDS TO SET UP TEAM !!!
-
-            
         }
     }
 }

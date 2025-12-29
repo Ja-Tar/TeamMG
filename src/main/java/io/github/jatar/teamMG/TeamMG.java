@@ -4,6 +4,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Team;
 import org.jspecify.annotations.NonNull;
 import redempt.redlib.commandmanager.CommandHook;
 import redempt.redlib.commandmanager.CommandParser;
@@ -11,7 +12,8 @@ import redempt.redlib.inventorygui.InventoryGUI;
 
 import java.util.logging.Logger;
 
-import static io.github.jatar.teamMG.TeamInventory.*;
+import static io.github.jatar.teamMG.ScoreboardMG.scoreboard;
+import static io.github.jatar.teamMG.TeamInventory.NoTeamInv;
 
 public final class TeamMG extends JavaPlugin {
     private static Logger logger;
@@ -23,12 +25,13 @@ public final class TeamMG extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        logger = getLogger();
+
         getLogger().info("Uruchamianie...");
 
         new CommandParser(this.getResource("command.rdcml")).parse().register("teammg", this);
 
         getLogger().info("Komendy dodane!");
-
     }
 
     private void openGUI(CommandSender sender, @NonNull InventoryGUI gui) {
@@ -38,6 +41,14 @@ public final class TeamMG extends JavaPlugin {
 
     @CommandHook("druzyna")
     public void createGetTeamComm(CommandSender sender) {
-        openGUI(sender, NoTeamInv());
+        Player player = (Player) sender;
+        Team team = scoreboard.getEntityTeam(player);
+        if (team == null) {
+            openGUI(sender, NoTeamInv());
+        } else {
+            sender.sendMessage(mm.deserialize("<red>Masz już drużynę! <reset>(podgląd dodam później)"));
+            // TODO: Później dodać żeby ta sama komenda pozwalała na podgląd aktualnej drużyny
+        }
+
     }
 }
