@@ -21,6 +21,7 @@ import static io.github.jatar.teamMG.TeamMG.mm;
 public class TeamDialogs {
     public static @NonNull Dialog createTeamDialog(String wrongInfo) {
         Component teamCommandNameLabel = mm.deserialize("ID drużyny (<color:red><bold><underlined>tego nie da się zmienić<reset>, bez spacji)");
+        Component teamNameLabel = mm.deserialize("Nazwa drużyny <i>(pole może być puste)");
         Component wrongText = mm.deserialize(wrongInfo);
 
         return Dialog.create(builder -> builder.empty()
@@ -35,7 +36,7 @@ public class TeamDialogs {
                                         .width(300)
                                         .maxLength(30)
                                         .build(),
-                                DialogInput.text("teamName", Component.text("Nazwa drużyny"))
+                                DialogInput.text("teamName", teamNameLabel)
                                         .width(300)
                                         .maxLength(30)
                                         .build()
