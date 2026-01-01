@@ -17,10 +17,11 @@ jobs:
       with:
           fetch-depth: 0
 
-    - name: Compile Mod
+    - name: Compile Plugin
       uses: xxanqw/compilation@v3
-      
-    - uses: svenstaro/upload-release-action@v2
+
+    - name: Upload to release
+      uses: svenstaro/upload-release-action@v2
       with:
           file: build/libs/*
           file_glob: true
