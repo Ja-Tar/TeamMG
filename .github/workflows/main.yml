@@ -1,4 +1,7 @@
-name: Build Minecraft Mod
+name: Build Minecraft Plugin
+
+permissions:
+  contents: write
 
 on:
   release:
