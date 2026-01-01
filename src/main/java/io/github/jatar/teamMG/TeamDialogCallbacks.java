@@ -15,7 +15,7 @@ public class TeamDialogCallbacks {
     public static void acceptNewTeamDialog(DialogResponseView view, Audience audience) {
 
         final String teamCommandName = view.getText("teamCommandName");
-        final String teamName = view.getText("teamName");
+        String teamName = view.getText("teamName");
 
         if (audience instanceof Player player) {
             assert teamCommandName != null;
@@ -26,22 +26,26 @@ public class TeamDialogCallbacks {
                 return;
             }
 
-            player.sendRichMessage("Command team name: <color:#ccfffd><comm-name></color> | Team name: <color:#ccfffd><view-name></color>",
-                    Placeholder.component("comm-name", Component.text(teamCommandName)),
-                    Placeholder.component("view-name", Component.text(teamName))
-            );
-            // ADD HERE COMMANDS TO SET UP TEAM !!!
             final Team newTeam;
             try {
                 newTeam = ScoreboardMG.scoreboard.registerNewTeam(teamCommandName);
             } catch (IllegalArgumentException e) {
-                getLog().info("Team exists: " + teamCommandName);
+                getLog().info("Team już istnieje: " + teamCommandName);
                 player.sendRichMessage(RichMessagePrefixes.error("ID drużyny już istnieje: <color:#ccfffd><comm-name></color>"),
                         Placeholder.component("comm-name", Component.text(teamCommandName))
                 );
                 return;
             }
-            newTeam.displayName(Component.text(teamName));
+            if (!teamName.isEmpty()) {
+                newTeam.displayName(Component.text(teamName));
+            } else teamName = teamCommandName;
+
+            player.sendRichMessage(RichMessagePrefixes.done("Utworzono drużynę: <color:#ccfffd><view-name></color> (ID: <i><color:#ccfffd><comm-name></color><reset>)"),
+                    Placeholder.component("comm-name", Component.text(teamCommandName)),
+                    Placeholder.component("view-name", Component.text(teamName))
+            );
+
+            newTeam.addEntity(player);
         }
     }
 }
