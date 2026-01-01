@@ -16,7 +16,9 @@ public class TeamButtonFunctions {
     }
 
     public static void searchForTeam(@NonNull InventoryClickEvent event) {
-        event.getWhoClicked().sendMessage(Component.text("TAK"));
+        Player player = (Player) event.getWhoClicked();
         Objects.requireNonNull(event.getClickedInventory()).close();
+        player.sendMessage(Component.text("SEARCH"));
+        // TODO: Add inventory gui with list of guilds as some items
     }
 }
