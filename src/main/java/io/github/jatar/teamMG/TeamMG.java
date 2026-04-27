@@ -2,9 +2,12 @@ package io.github.jatar.teamMG;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Team;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import redempt.redlib.commandmanager.CommandHook;
 import redempt.redlib.commandmanager.CommandParser;
@@ -34,7 +37,7 @@ public final class TeamMG extends JavaPlugin {
         getLogger().info("Komendy dodane!");
     }
 
-    private void openGUI(CommandSender sender, @NonNull InventoryGUI gui) {
+    private void openGUI(CommandSender sender, @NotNull InventoryGUI gui) {
         Player player = (Player) sender;
         gui.open(player);
     }
@@ -42,11 +45,14 @@ public final class TeamMG extends JavaPlugin {
     @CommandHook("druzyna")
     public void createGetTeamComm(CommandSender sender) {
         Player player = (Player) sender;
-        Team team = scoreboard.getEntityTeam(player);
+        TeamWrapper team = scoreboard.getEntityTeam(player);
         if (team == null) {
             openGUI(sender, NoTeamInv());
         } else {
             sender.sendMessage(mm.deserialize("<red>Masz już drużynę! <reset>(podgląd dodam później)"));
+            if (team.isTeamManager((Entity) sender)) {
+                sender.sendMessage(mm.deserialize("<red>Jesteś menadżerem! <reset>(podgląd dodam później)"));
+            }
             // TODO: Później dodać żeby ta sama komenda pozwalała na podgląd aktualnej drużyny
         }
 

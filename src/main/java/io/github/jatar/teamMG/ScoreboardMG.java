@@ -7,5 +7,5 @@ import static org.bukkit.Bukkit.getServer;
 
 public class ScoreboardMG {
     static final ScoreboardManager scoreboardManager = getServer().getScoreboardManager();
-    public static final Scoreboard scoreboard = scoreboardManager.getMainScoreboard();
+    public static final ScoreboardWrapper scoreboard = new ScoreboardWrapper(scoreboardManager.getMainScoreboard());
 }

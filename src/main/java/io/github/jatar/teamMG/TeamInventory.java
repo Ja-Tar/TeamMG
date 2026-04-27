@@ -34,4 +34,16 @@ public class TeamInventory {
 
         return gui;
     }
+
+    public static @NonNull InventoryGUI MngTeamInv() {
+        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
+        // TODO: Add inventory for team manager
+        return gui;
+    }
+
+    public static @NonNull InventoryGUI UsrTeamInv() {
+        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
+        // TODO: Add inventory for team members
+        return gui;
+    }
 }

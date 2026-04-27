@@ -26,15 +26,18 @@ public class TeamDialogCallbacks {
                 return;
             }
 
-            final Team newTeam;
+            final TeamWrapper newTeam;
             try {
-                newTeam = ScoreboardMG.scoreboard.registerNewTeam(teamCommandName);
+                newTeam = scoreboard.registerNewTeam(teamCommandName);
             } catch (IllegalArgumentException e) {
-                getLog().info("Team już istnieje: " + teamCommandName);
-                player.sendRichMessage(RichMessagePrefixes.error("ID drużyny już istnieje: <color:#ccfffd><comm-name></color>"),
-                        Placeholder.component("comm-name", Component.text(teamCommandName))
-                );
-                return;
+                if (e.getMessage().contains("is already in use")) {
+                    getLog().info("Team już istnieje: " + teamCommandName);
+                    player.sendRichMessage(RichMessagePrefixes.error("ID drużyny już istnieje: <color:#ccfffd><comm-name></color>"),
+                            Placeholder.component("comm-name", Component.text(teamCommandName))
+                    );
+                    return;
+                }
+                throw e;
             }
             if (!teamName.isEmpty()) {
                 newTeam.displayName(Component.text(teamName));
@@ -46,6 +49,7 @@ public class TeamDialogCallbacks {
             );
 
             newTeam.addEntity(player);
+            newTeam.setTeamManager(player);
         }
     }
 }

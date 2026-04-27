@@ -1,5 +1,4 @@
 druzyna {
-	permission druzyna.use
 	help Smites you with a lightning bolt
 	hook druzyna
 }
