@@ -37,7 +37,13 @@ public class TeamInventory {
 
     public static @NonNull InventoryGUI MngTeamInv() {
         InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
-        // TODO: Add inventory for team manager
+
+        ItemButton buttonRemoveTeam = ItemButton.create(
+                getCustomItemStack(Material.MAGMA_BLOCK, "<b><gradient:#ff0000:#910000:#ff0000>USUŃ DRUŻYNĘ</b>"),
+                TeamButtonFunctions::removeTeam);
+
+        gui.addButton(buttonRemoveTeam, 13);
+
         return gui;
     }
 

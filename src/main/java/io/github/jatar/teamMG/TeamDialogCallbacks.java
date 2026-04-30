@@ -52,4 +52,10 @@ public class TeamDialogCallbacks {
             newTeam.setTeamManager(player);
         }
     }
+
+    public static void acceptRemoveTeamDialog(DialogResponseView view, Audience audience) {
+        if (audience instanceof Player player) {
+
+        }
+    }
 }

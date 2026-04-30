@@ -61,4 +61,34 @@ public class TeamDialogs {
                 ))
         );
     }
+
+    public static @NonNull Dialog removeTeamCheck() {
+        Component infoText = mm.deserialize("Czy chcesz <red><b><u>usunąć</u></b><reset> drużynę?");
+
+        return  Dialog.create(builder -> builder.empty()
+                .base(DialogBase.builder(Component.text("Jesteś pewien?!", NamedTextColor.GREEN))
+                        .body(
+                                List.of(
+                                        DialogBody.plainMessage(infoText)
+                                )
+                        ).build()
+                ).type(DialogType.confirmation(
+                        ActionButton.create(
+                                Component.text("ANULUJ usuwanie", TextColor.color(0xff0000)),
+                                null,
+                                120,
+                                null // If we set the action to null, it doesn't do anything and closes the dialogue
+                        ),
+                        ActionButton.create(
+                                Component.text("POTWIERDŹ usuwanie", TextColor.color(0x00ff00)),
+                                null,
+                                120,
+                                DialogAction.customClick(TeamDialogCallbacks::acceptRemoveTeamDialog, ClickCallback.Options.builder()
+                                        .uses(1)
+                                        .lifetime(ClickCallback.DEFAULT_LIFETIME)
+                                        .build())
+                        )
+                ))
+        );
+    }
 }

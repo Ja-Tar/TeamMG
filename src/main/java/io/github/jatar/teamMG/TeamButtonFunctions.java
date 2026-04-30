@@ -21,4 +21,10 @@ public class TeamButtonFunctions {
         player.sendMessage(Component.text("SEARCH"));
         // TODO: Add inventory gui with list of guilds as some items
     }
+
+    public static void removeTeam(@NonNull InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        Objects.requireNonNull(event.getClickedInventory()).close();
+        player.showDialog(TeamDialogs.removeTeamCheck());
+    }
 }

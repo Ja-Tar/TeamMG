@@ -16,6 +16,7 @@ import redempt.redlib.inventorygui.InventoryGUI;
 import java.util.logging.Logger;
 
 import static io.github.jatar.teamMG.ScoreboardMG.scoreboard;
+import static io.github.jatar.teamMG.TeamInventory.MngTeamInv;
 import static io.github.jatar.teamMG.TeamInventory.NoTeamInv;
 
 public final class TeamMG extends JavaPlugin {
@@ -49,9 +50,10 @@ public final class TeamMG extends JavaPlugin {
         if (team == null) {
             openGUI(sender, NoTeamInv());
         } else {
-            sender.sendMessage(mm.deserialize("<red>Masz już drużynę! <reset>(podgląd dodam później)"));
             if (team.isTeamManager((Entity) sender)) {
-                sender.sendMessage(mm.deserialize("<red>Jesteś menadżerem! <reset>(podgląd dodam później)"));
+                openGUI(sender, MngTeamInv());
+            } else {
+                sender.sendMessage(mm.deserialize("<red>Masz już drużynę! <reset>(podgląd dodam później)"));
             }
             // TODO: Później dodać żeby ta sama komenda pozwalała na podgląd aktualnej drużyny
         }
