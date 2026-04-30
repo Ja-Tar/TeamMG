@@ -5,7 +5,6 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Team;
 
 import static io.github.jatar.teamMG.ScoreboardMG.scoreboard;
 import static io.github.jatar.teamMG.TeamMG.getLog;
@@ -55,7 +54,12 @@ public class TeamDialogCallbacks {
 
     public static void acceptRemoveTeamDialog(DialogResponseView view, Audience audience) {
         if (audience instanceof Player player) {
-
+            TeamWrapper team = scoreboard.getEntityTeam(player);
+            assert team != null;
+            if (team.isTeamManager(player)) {
+                team.removeTeam(player);
+                player.sendRichMessage(RichMessagePrefixes.done("Usunięto drużynę"));
+            }
         }
     }
 }

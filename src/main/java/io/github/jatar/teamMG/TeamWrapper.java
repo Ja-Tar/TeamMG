@@ -2,7 +2,6 @@ package io.github.jatar.teamMG;
 
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -11,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+import static io.github.jatar.teamMG.TeamMG.logger;
+
 public class TeamWrapper {
     private final Team team;
     private final NamespacedKey key;
@@ -18,15 +19,16 @@ public class TeamWrapper {
     public TeamWrapper(@NotNull Team team) {
         this.team = team;
         key = new NamespacedKey(TeamMG.getProvidingPlugin(TeamMG.class), "TeamManager");
+        logger.info("Utworzono drużynę -> %s".formatted(team.getName()));
     }
 
-    void setTeamManager(@NotNull Entity entity) {
-        PersistentDataContainer pdc = entity.getPersistentDataContainer();
+    void setTeamManager(@NotNull Player player) {
+        PersistentDataContainer pdc = player.getPersistentDataContainer();
         pdc.set(key, PersistentDataType.STRING, team.getName());
     }
 
-    boolean isTeamManager(@NotNull Entity entity) {
-        PersistentDataContainer pdc = entity.getPersistentDataContainer();
+    boolean isTeamManager(@NotNull Player player) {
+        PersistentDataContainer pdc = player.getPersistentDataContainer();
         String teamName = pdc.get(key, PersistentDataType.STRING);
         return Objects.equals(teamName, team.getName());
     }
@@ -35,7 +37,14 @@ public class TeamWrapper {
         team.displayName(text);
     }
 
-    public void addEntity(Player player) {
-        team.addEntity(player);
+    public void addEntity(Player player) { team.addEntity(player); }
+
+    public void removeEntity(Player player) { team.removeEntity(player); }
+
+    public void removeTeam(Player manager) {
+        logger.info("Usunięto drużynę -> %s przez %s".formatted(team.getName(), manager.getName()));
+        PersistentDataContainer pdc = manager.getPersistentDataContainer();
+        pdc.remove(key);
+        team.unregister();
     }
 }

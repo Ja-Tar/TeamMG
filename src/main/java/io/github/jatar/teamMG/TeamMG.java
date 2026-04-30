@@ -2,13 +2,9 @@ package io.github.jatar.teamMG;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.NonNull;
 import redempt.redlib.commandmanager.CommandHook;
 import redempt.redlib.commandmanager.CommandParser;
 import redempt.redlib.inventorygui.InventoryGUI;
@@ -20,7 +16,7 @@ import static io.github.jatar.teamMG.TeamInventory.MngTeamInv;
 import static io.github.jatar.teamMG.TeamInventory.NoTeamInv;
 
 public final class TeamMG extends JavaPlugin {
-    private static Logger logger;
+    public static Logger logger;
     static MiniMessage mm = MiniMessage.miniMessage();
 
     public static Logger getLog() {
@@ -50,7 +46,7 @@ public final class TeamMG extends JavaPlugin {
         if (team == null) {
             openGUI(sender, NoTeamInv());
         } else {
-            if (team.isTeamManager((Entity) sender)) {
+            if (team.isTeamManager((Player) sender)) {
                 openGUI(sender, MngTeamInv());
             } else {
                 sender.sendMessage(mm.deserialize("<red>Masz już drużynę! <reset>(podgląd dodam później)"));
