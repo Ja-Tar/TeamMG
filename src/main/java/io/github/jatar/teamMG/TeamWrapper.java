@@ -1,5 +1,6 @@
 package io.github.jatar.teamMG;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 import static io.github.jatar.teamMG.TeamMG.logger;
+import static io.github.jatar.teamMG.TeamMG.mm;
 
 public class TeamWrapper {
     private final Team team;
@@ -19,6 +21,7 @@ public class TeamWrapper {
     public TeamWrapper(@NotNull Team team) {
         this.team = team;
         key = new NamespacedKey(TeamMG.getProvidingPlugin(TeamMG.class), "TeamManager");
+        team.prefix(mm.deserialize(" <i>%s<reset> ".formatted(team.getName())));
         logger.info("Utworzono drużynę -> %s".formatted(team.getName()));
     }
 

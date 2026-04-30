@@ -44,6 +44,12 @@ public class TeamDialogs {
                         .build()
                 ).type(DialogType.confirmation(
                         ActionButton.create(
+                                Component.text("Anuluj", TextColor.color(0xff0000)),
+                                null,
+                                100,
+                                null // If we set the action to null, it doesn't do anything and closes the dialogue
+                        ),
+                        ActionButton.create(
                                 Component.text("Zapisz", TextColor.color(0x00ff00)),
                                 null,
                                 100,
@@ -51,12 +57,6 @@ public class TeamDialogs {
                                         .uses(1) // Set the number of uses for this callback. Defaults to 1
                                         .lifetime(ClickCallback.DEFAULT_LIFETIME) // Set the lifetime of the callback. Defaults to 12 hours
                                         .build())
-                        ),
-                        ActionButton.create(
-                                Component.text("Anuluj", TextColor.color(0xff0000)),
-                                null,
-                                100,
-                                null // If we set the action to null, it doesn't do anything and closes the dialogue
                         )
                 ))
         );
