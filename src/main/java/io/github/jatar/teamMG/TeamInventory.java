@@ -27,7 +27,7 @@ public class TeamInventory {
                 TeamButtonFunctions::createNewTeam);
         ItemButton buttonFindTeam = ItemButton.create(
                 getCustomItemStack(Material.BOOK, "<b><gradient:#006FDB:#0015B3>ZOBACZ ZAPROSZENIA</b>"),
-                TeamButtonFunctions::searchForTeam);
+                TeamButtonFunctions::joinRequests);
 
         gui.addButton(buttonCreateTeam, 11);
         gui.addButton(buttonFindTeam, 15);
@@ -38,11 +38,16 @@ public class TeamInventory {
     public static @NonNull InventoryGUI MngTeamInv() {
         InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
 
+        ItemButton buttonJoinRequests = ItemButton.create(
+                getCustomItemStack(Material.IRON_DOOR, "<b><gradient:#0070ff:#0040ff:#0090ff>ZAPROŚ GRACZA</b>"),
+                TeamButtonFunctions::sendJoinRequest);
+
         ItemButton buttonRemoveTeam = ItemButton.create(
                 getCustomItemStack(Material.MAGMA_BLOCK, "<b><gradient:#ff0000:#910000:#ff0000>USUŃ DRUŻYNĘ</b>"),
                 TeamButtonFunctions::removeTeam);
 
-        gui.addButton(buttonRemoveTeam, 13);
+        gui.addButton(buttonJoinRequests, 11);
+        gui.addButton(buttonRemoveTeam, 15);
 
         return gui;
     }
@@ -50,6 +55,12 @@ public class TeamInventory {
     public static @NonNull InventoryGUI UsrTeamInv() {
         InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
         // TODO: Add inventory for team members
+        return gui;
+    }
+
+    public static @NonNull InventoryGUI TeamsList() {
+        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Dostępne drużyny:")));
+        // TODO: Add list of teams
         return gui;
     }
 }

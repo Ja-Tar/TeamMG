@@ -62,4 +62,8 @@ public class TeamDialogCallbacks {
             }
         }
     }
+
+    public static void acceptSelectedRequests(DialogResponseView view, Audience audience) {
+        // TODO finish
+    }
 }

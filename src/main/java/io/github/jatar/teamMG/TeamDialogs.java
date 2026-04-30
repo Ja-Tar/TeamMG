@@ -13,6 +13,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.jspecify.annotations.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.jatar.teamMG.TeamMG.mm;
@@ -63,15 +64,9 @@ public class TeamDialogs {
     }
 
     public static @NonNull Dialog removeTeamCheck() {
-        Component infoText = mm.deserialize("Czy chcesz <red><b><u>usunąć</u></b><reset> drużynę?");
-
         return  Dialog.create(builder -> builder.empty()
-                .base(DialogBase.builder(Component.text("Jesteś pewien?!", NamedTextColor.GREEN))
-                        .body(
-                                List.of(
-                                        DialogBody.plainMessage(infoText)
-                                )
-                        ).build()
+                .base(DialogBase.builder(mm.deserialize("Czy chcesz <red><b><u>usunąć</u></b><reset> drużynę?"))
+                        .build()
                 ).type(DialogType.confirmation(
                         ActionButton.create(
                                 Component.text("ANULUJ usuwanie", TextColor.color(0xff0000)),
@@ -84,6 +79,35 @@ public class TeamDialogs {
                                 null,
                                 120,
                                 DialogAction.customClick(TeamDialogCallbacks::acceptRemoveTeamDialog, ClickCallback.Options.builder()
+                                        .uses(1)
+                                        .lifetime(ClickCallback.DEFAULT_LIFETIME)
+                                        .build())
+                        )
+                ))
+        );
+    }
+
+    public static @NonNull Dialog listJoinRequests() {
+        List<DialogInput> inputs = new ArrayList<>();
+        // TODO: add request list
+
+        // all players will be listed with boolean selector
+        return  Dialog.create(builder -> builder.empty()
+                .base(DialogBase.builder(mm.deserialize("Lista próśb o dołączenie"))
+                        .inputs(inputs)
+                        .build()
+                ).type(DialogType.confirmation(
+                        ActionButton.create(
+                                Component.text("ANULUJ", TextColor.color(0xff0000)),
+                                null,
+                                100,
+                                null
+                        ),
+                        ActionButton.create(
+                                Component.text("POTWIERDŹ dołączenie", TextColor.color(0x00ff00)),
+                                null,
+                                100,
+                                DialogAction.customClick(TeamDialogCallbacks::acceptSelectedRequests, ClickCallback.Options.builder()
                                         .uses(1)
                                         .lifetime(ClickCallback.DEFAULT_LIFETIME)
                                         .build())
