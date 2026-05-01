@@ -39,6 +39,7 @@ public class TeamWrapper {
     public void displayName(@NotNull TextComponent text) {
         team.displayName(text);
     }
+    public @NotNull Component displayName() { return team.displayName(); }
 
     public void addEntity(Player player) { team.addEntity(player); }
 

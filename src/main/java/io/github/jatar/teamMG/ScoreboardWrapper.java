@@ -39,4 +39,11 @@ public class ScoreboardWrapper {
         }
         return teamWrappers;
     }
+
+    @Nullable
+    public TeamWrapper getTeam(String name) {
+        Team team = scoreboard.getTeam(name);
+        if (team == null) return null;
+        return new TeamWrapper(team);
+    }
 }

@@ -90,6 +90,7 @@ public class TeamDialogs {
     public static @NonNull Dialog listJoinRequests() {
         List<DialogInput> inputs = new ArrayList<>();
         // TODO: add request list
+        // TODO: First add settings to set team as private
 
         // all players will be listed with boolean selector
         return  Dialog.create(builder -> builder.empty()
