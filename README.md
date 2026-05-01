@@ -22,5 +22,5 @@ Compatible versions (with updates):
 
 Just drop jar into `plugins` folder on your server.
 
-- No dependencies needed!
+- No dependencies needed.
 - No further configuration needed (for now).
