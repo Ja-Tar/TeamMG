@@ -14,7 +14,7 @@ TeamMG is simple plugin that is a gui version of `/team` command.
 
 ## Demo video
 
-### _**!! ADD !!**_
+https://github.com/user-attachments/assets/bd5dc990-595b-46d3-be8b-bc4f064e40cb
 
 ## How to install
 Compatible versions (with updates):
