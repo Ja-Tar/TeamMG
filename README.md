@@ -1,5 +1,5 @@
 # TeamMG
-TeamMG is simple plugin that is proxy for `/team` command.
+TeamMG is simple plugin that is a gui version of `/team` command.
 
 > [!Warning]
 > It's not finished! It lacks a lot of features!
@@ -18,4 +18,4 @@ TeamMG is simple plugin that is proxy for `/team` command.
 
 ## How to install
 Just drop jar into `plugins` folder on your server.
-No dependence needed!
+No dependencies needed!
