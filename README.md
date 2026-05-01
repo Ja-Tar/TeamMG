@@ -17,7 +17,7 @@ TeamMG is simple plugin that is a gui version of `/team` command.
 ### _**!! ADD !!**_
 
 ## How to install
-Current tested versions (more versions soon):
+Compatible versions (with updates):
 - 1.21.11
 
 Just drop jar into `plugins` folder on your server.
