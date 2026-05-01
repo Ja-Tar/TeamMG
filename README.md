@@ -21,5 +21,6 @@ Compatible versions (with updates):
 - 1.21.11
 
 Just drop jar into `plugins` folder on your server.
-No dependencies needed!
-No further configuration needed (for now).
+
+- No dependencies needed!
+- No further configuration needed (for now).
