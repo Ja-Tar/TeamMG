@@ -1,4 +1,9 @@
 druzyna {
-	help Smites you with a lightning bolt
+	help Zarządzaj drużyną
 	hook druzyna
+}
+
+team {
+    help Menage team
+    hook druzyna
 }

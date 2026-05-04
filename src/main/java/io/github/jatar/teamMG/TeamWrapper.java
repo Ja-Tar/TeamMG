@@ -22,7 +22,7 @@ public class TeamWrapper {
         this.team = team;
         key = new NamespacedKey(TeamMG.getProvidingPlugin(TeamMG.class), "TeamManager");
         team.prefix(mm.deserialize(" <i>%s<reset> ".formatted(team.getName())));
-        logger.info("Utworzono drużynę -> %s".formatted(team.getName()));
+        logger.info("Team created -> %s".formatted(team.getName()));
     }
 
     void setTeamManager(@NotNull Player player) {
@@ -46,7 +46,7 @@ public class TeamWrapper {
     public void removeEntity(Player player) { team.removeEntity(player); }
 
     public void removeTeam(Player manager) {
-        logger.info("Usunięto drużynę -> %s przez %s".formatted(team.getName(), manager.getName()));
+        logger.info("Team deleted -> %s by %s".formatted(team.getName(), manager.getName()));
         PersistentDataContainer pdc = manager.getPersistentDataContainer();
         pdc.remove(key);
         team.unregister();

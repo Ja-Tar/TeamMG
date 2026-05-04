@@ -27,7 +27,7 @@ public class TeamInventory {
     }
 
     public static @NonNull InventoryGUI NoTeamInv() {
-        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
+        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.translatable("gui.inv.name.noTeam")));
 
         ItemButton buttonCreateTeam = ItemButton.create(
                 getCustomItemStack(Material.LIME_WOOL, "<b><gradient:#00FF1E:#00B315>STWÓRZ DRUŻYNĘ</b>"),
