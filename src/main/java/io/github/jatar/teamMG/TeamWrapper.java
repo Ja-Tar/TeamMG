@@ -22,7 +22,6 @@ public class TeamWrapper {
         this.team = team;
         key = new NamespacedKey(TeamMG.getProvidingPlugin(TeamMG.class), "TeamManager");
         team.prefix(mm.deserialize(" <i>%s<reset> ".formatted(team.getName())));
-        logger.info("Team created -> %s".formatted(team.getName()));
     }
 
     void setTeamManager(@NotNull Player player) {
@@ -50,5 +49,9 @@ public class TeamWrapper {
         PersistentDataContainer pdc = manager.getPersistentDataContainer();
         pdc.remove(key);
         team.unregister();
+    }
+
+    public Object getName() {
+        return team.getName();
     }
 }

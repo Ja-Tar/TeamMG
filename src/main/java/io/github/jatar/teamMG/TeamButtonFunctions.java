@@ -30,7 +30,7 @@ public class TeamButtonFunctions {
     public static void searchForTeam(@NonNull InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         Objects.requireNonNull(event.getClickedInventory()).close();
-        openGUI(player, TeamInventory.TeamsList());
+        openGUI(player, TeamInventory.TeamsList(player.locale()));
     }
 
     public static void removeTeam(@NonNull InventoryClickEvent event) {

@@ -2,8 +2,8 @@ package io.github.jatar.teamMG;
 
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.translation.MiniMessageTranslationStore;
 import net.kyori.adventure.translation.GlobalTranslator;
-import net.kyori.adventure.translation.TranslationStore;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,7 +12,6 @@ import redempt.redlib.commandmanager.CommandHook;
 import redempt.redlib.commandmanager.CommandParser;
 import redempt.redlib.inventorygui.InventoryGUI;
 
-import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -23,7 +22,8 @@ import static io.github.jatar.teamMG.TeamInventory.NoTeamInv;
 
 public final class TeamMG extends JavaPlugin {
     public static Logger logger;
-    static MiniMessage mm = MiniMessage.miniMessage();
+    public static MiniMessage mm = MiniMessage.miniMessage();
+    public static final Locale LocalePL = Locale.of("pl", "PL");
 
     public static Logger getLog() {
         return logger;
@@ -45,11 +45,12 @@ public final class TeamMG extends JavaPlugin {
     }
 
     private static void loadTranslations() {
-        TranslationStore.StringBased<MessageFormat> store = TranslationStore.messageFormat(Key.key("teammg:translate"));
-        ResourceBundle usBundle = ResourceBundle.getBundle("Bundle", Locale.US);
-        store.registerAll(Locale.US, usBundle, true);
-        ResourceBundle plBundle = ResourceBundle.getBundle("Bundle", Locale.of("pl", "PL"));
-        store.registerAll(Locale.of("pl", "PL"), plBundle, true);
+        MiniMessageTranslationStore store = MiniMessageTranslationStore.create(Key.key("teammg:translate"), mm);
+
+        store.registerAll(Locale.US, ResourceBundle.getBundle("MiniMessages", Locale.US), true);
+        store.registerAll(LocalePL, ResourceBundle.getBundle("MiniMessages", LocalePL), true);
+        store.defaultLocale(Locale.US);
+
         GlobalTranslator.translator().addSource(store);
     }
 
@@ -61,12 +62,13 @@ public final class TeamMG extends JavaPlugin {
     @CommandHook("druzyna")
     public void createGetTeamComm(CommandSender sender) {
         Player player = (Player) sender;
+        Locale playerLocale = player.locale();
         TeamWrapper team = scoreboard.getEntityTeam(player);
         if (team == null) {
-            openGUI(sender, NoTeamInv());
+            openGUI(sender, NoTeamInv(playerLocale));
         } else {
             if (team.isTeamManager((Player) sender)) {
-                openGUI(sender, MngTeamInv());
+                openGUI(sender, MngTeamInv(playerLocale));
             } else {
                 sender.sendMessage(mm.deserialize("<red>Masz już drużynę! <reset>(podgląd dodam później)"));
             }

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import static io.github.jatar.teamMG.ScoreboardMG.scoreboard;
 import static io.github.jatar.teamMG.TeamMG.getLog;
+import static io.github.jatar.teamMG.TeamMG.logger;
 
 @SuppressWarnings({"UnstableApiUsage"})
 public class TeamDialogCallbacks {
@@ -49,6 +50,7 @@ public class TeamDialogCallbacks {
 
             newTeam.addEntity(player);
             newTeam.setTeamManager(player);
+            logger.info("Team created -> %s".formatted(newTeam.getName()));
         }
     }
 

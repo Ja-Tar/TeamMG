@@ -2,6 +2,7 @@ package io.github.jatar.teamMG;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.translation.GlobalTranslator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -13,27 +14,27 @@ import redempt.redlib.inventorygui.PaginationPanel;
 import redempt.redlib.itemutils.ItemBuilder;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import static io.github.jatar.teamMG.ScoreboardMG.scoreboard;
-import static io.github.jatar.teamMG.TeamMG.mm;
 
 public class TeamInventory {
-    public static @NonNull ItemStack getCustomItemStack(Material itemType, String formatedItemName) {
-        Component parsed = mm.deserialize(formatedItemName).decoration(TextDecoration.ITALIC, false);
+    public static @NonNull ItemStack getCustomItemStack(Material itemType, Component formatedItemName, Locale playerLocale) {
+        Component parsed = formatedItemName.decoration(TextDecoration.ITALIC, false);
         ItemStack item = new ItemStack(itemType);
-        item.editMeta(meta -> meta.customName(parsed));
+        item.editMeta(meta -> meta.customName(GlobalTranslator.render(parsed, playerLocale)));
         return item;
     }
 
-    public static @NonNull InventoryGUI NoTeamInv() {
-        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.translatable("gui.inv.name.noTeam")));
+    public static @NonNull InventoryGUI NoTeamInv(Locale playerLocale) {
+        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.translatable("gui.inv.noTeam.name")));
 
         ItemButton buttonCreateTeam = ItemButton.create(
-                getCustomItemStack(Material.LIME_WOOL, "<b><gradient:#00FF1E:#00B315>STWÓRZ DRUŻYNĘ</b>"),
+                getCustomItemStack(Material.LIME_WOOL, Component.translatable("gui.inv.noTeam.limeWool"), playerLocale),
                 TeamButtonFunctions::createNewTeam);
         ItemButton buttonFindTeam = ItemButton.create(
-                getCustomItemStack(Material.BOOK, "<b><gradient:#006FDB:#0015B3>ZNAJDŹ ISTNIEJĄCĄ</b>"),
+                getCustomItemStack(Material.BOOK, Component.translatable("gui.inv.noTeam.book"), playerLocale),
                 TeamButtonFunctions::searchForTeam);
 
         gui.addButton(buttonCreateTeam, 11);
@@ -42,15 +43,15 @@ public class TeamInventory {
         return gui;
     }
 
-    public static @NonNull InventoryGUI MngTeamInv() {
-        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
+    public static @NonNull InventoryGUI MngTeamInv(Locale playerLocale) {
+        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.translatable("gui.inv.mngTeam.name")));
 
         ItemButton buttonJoinRequests = ItemButton.create(
-                getCustomItemStack(Material.IRON_DOOR, "<b><gradient:#0070ff:#0040ff:#0090ff>PROŚBY O DOŁĄCZENIE</b>"),
+                getCustomItemStack(Material.IRON_DOOR, Component.translatable("gui.inv.mngTeam.ironDoor"), playerLocale),
                 TeamButtonFunctions::joinRequests);
 
         ItemButton buttonRemoveTeam = ItemButton.create(
-                getCustomItemStack(Material.MAGMA_BLOCK, "<b><gradient:#ff0000:#910000:#ff0000>USUŃ DRUŻYNĘ</b>"),
+                getCustomItemStack(Material.MAGMA_BLOCK, Component.translatable("gui.inv.mngTeam.magmaBlock"), playerLocale),
                 TeamButtonFunctions::removeTeam);
 
         gui.addButton(buttonJoinRequests, 11);
@@ -59,7 +60,7 @@ public class TeamInventory {
         return gui;
     }
 
-    public static @NonNull InventoryGUI UsrTeamInv() {
+    public static @NonNull InventoryGUI UsrTeamInv(Locale playerLocale) {
         InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Drużyna:")));
         // TODO: Add inventory for team members
         return gui;
@@ -82,7 +83,7 @@ public class TeamInventory {
         return teamsItemStack;
     }
 
-    public static @NonNull InventoryGUI TeamsList() {
+    public static @NonNull InventoryGUI TeamsList(Locale playerLocale) {
         InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Dostępne drużyny:")));
 
         PaginationPanel pages = new PaginationPanel(gui);

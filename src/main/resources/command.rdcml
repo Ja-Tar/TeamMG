@@ -3,7 +3,7 @@ druzyna {
 	hook druzyna
 }
 
-team {
+teammg {
     help Menage team
     hook druzyna
 }
