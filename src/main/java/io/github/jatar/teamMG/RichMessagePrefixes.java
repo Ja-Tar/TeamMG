@@ -1,26 +1,22 @@
 package io.github.jatar.teamMG;
 
-import org.jetbrains.annotations.Contract;
+import net.kyori.adventure.text.Component;
 import org.jspecify.annotations.NonNull;
 
 public class RichMessagePrefixes {
-    public static @NonNull String error(String s) {
-        String errorText = "<red><bold>ERROR: <reset>";
-        return errorText + s;
+    public static @NonNull Component error(Component s) {
+        return Component.translatable("richPrefixes.error").append(s);
     }
 
-    public static @NonNull String warn(String s) {
-        String warnText = "<yellow><bold>UWAGA: <reset>";
-        return warnText + s;
+    public static @NonNull Component warn(Component s) {
+        return Component.translatable("richPrefixes.warn").append(s);
     }
 
-    public static @NonNull String info(String s) {
-        String infoText = "<blue><bold>INFO: <reset>";
-        return infoText + s;
+    public static @NonNull Component info(Component s) {
+        return Component.translatable("richPrefixes.info").append(s);
     }
 
-    public static @NonNull String done(String s) {
-        String doneText = "<green><bold>SUKCES: <reset>";
-        return doneText + s;
+    public static @NonNull Component done(Component s) {
+        return Component.translatable("richPrefixes.done").append(s);
     }
 }

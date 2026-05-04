@@ -53,6 +53,6 @@ public class TeamButtonFunctions {
         TeamWrapper teamWrapper = scoreboard.getTeam(mm.serialize(Objects.requireNonNull(itemButton.getItem().getItemMeta().displayName())));
         assert teamWrapper != null;
         teamWrapper.addEntity(player);
-        player.sendRichMessage(RichMessagePrefixes.done("Dołączono do drużyny -> %s".formatted(mm.serialize(teamWrapper.displayName()))));
+        player.sendMessage(RichMessagePrefixes.done(Component.translatable("message.joinTeam.info", teamWrapper.displayName())));
     }
 }

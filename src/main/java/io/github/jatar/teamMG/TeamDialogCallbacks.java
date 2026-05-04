@@ -3,7 +3,6 @@ package io.github.jatar.teamMG;
 import io.papermc.paper.dialog.DialogResponseView;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.entity.Player;
 
 import static io.github.jatar.teamMG.ScoreboardMG.scoreboard;
@@ -32,9 +31,7 @@ public class TeamDialogCallbacks {
             } catch (IllegalArgumentException e) {
                 if (e.getMessage().contains("is already in use")) {
                     getLog().info("Team już istnieje: " + teamCommandName);
-                    player.sendRichMessage(RichMessagePrefixes.error("ID drużyny już istnieje: <color:#ccfffd><comm-name></color>"),
-                            Placeholder.component("comm-name", Component.text(teamCommandName))
-                    );
+                    player.sendMessage(RichMessagePrefixes.error(Component.translatable("message.acceptNewTeam.idExists", Component.text(teamCommandName))));
                     return;
                 }
                 throw e;
@@ -43,10 +40,7 @@ public class TeamDialogCallbacks {
                 newTeam.displayName(Component.text(teamName));
             } else teamName = teamCommandName;
 
-            player.sendRichMessage(RichMessagePrefixes.done("Utworzono drużynę: <color:#ccfffd><view-name></color> (ID: <i><color:#ccfffd><comm-name></color><reset>)"),
-                    Placeholder.component("comm-name", Component.text(teamCommandName)),
-                    Placeholder.component("view-name", Component.text(teamName))
-            );
+            player.sendMessage(RichMessagePrefixes.done(Component.translatable("message.acceptNewTeam.createdTeam", Component.text(teamCommandName), Component.text(teamName))));
 
             newTeam.addEntity(player);
             newTeam.setTeamManager(player);
@@ -60,7 +54,7 @@ public class TeamDialogCallbacks {
             assert team != null;
             if (team.isTeamManager(player)) {
                 team.removeTeam(player);
-                player.sendRichMessage(RichMessagePrefixes.done("Usunięto drużynę"));
+                player.sendMessage(RichMessagePrefixes.done(Component.translatable("message.acceptRemoveTeam.removedTeam")));
             }
         }
     }

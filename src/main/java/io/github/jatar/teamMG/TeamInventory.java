@@ -6,7 +6,6 @@ import net.kyori.adventure.translation.GlobalTranslator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import redempt.redlib.inventorygui.InventoryGUI;
 import redempt.redlib.inventorygui.ItemButton;
@@ -66,11 +65,10 @@ public class TeamInventory {
         return gui;
     }
 
-    private static @Nullable Set<ItemButton> teamsItemStack() {
+    private static @NonNull Set<ItemButton> teamsItemStack() {
         Set<TeamWrapper> teamWrapperSet = scoreboard.getTeams();
-        assert teamWrapperSet != null;
-        if (teamWrapperSet.isEmpty()) {
-            return null;
+        if (teamWrapperSet == null || teamWrapperSet.isEmpty()) {
+            return new HashSet<>();
         }
         Set<ItemButton> teamsItemStack = new HashSet<>();
         for (TeamWrapper teamWrapper : teamWrapperSet) {
