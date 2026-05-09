@@ -21,7 +21,7 @@ public class TeamDialogCallbacks {
             assert teamName != null;
 
             if (!PatternCheckers.isValidCommandName(teamCommandName)) {
-                player.showDialog(TeamDialogs.createTeamDialog(Component.translatable("gui.menu.createTeam.wrongInfo")));
+                player.showDialog(TeamDialogs.createTeamDialog(Component.translatable("gui.menu.createTeam.wrongInfo"), player.locale()));
                 return;
             }
 

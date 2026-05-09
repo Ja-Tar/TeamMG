@@ -9,20 +9,25 @@ import io.papermc.paper.registry.data.dialog.input.DialogInput;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
-import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.translation.GlobalTranslator;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @SuppressWarnings({"UnstableApiUsage"})
 public class TeamDialogs {
-    public static @NonNull Dialog createTeamDialog(Component wrongText) {
-        Component teamCommandNameLabel = Component.translatable("gui.menu.createTeam.commandNameLabel");
-        Component teamNameLabel = Component.translatable("gui.menu.createTeam.nameLabel");
+    private static @NonNull Component renderToString(String key, Locale userLocale) {
+        return GlobalTranslator.render(Component.translatable(key), userLocale);
+    }
+
+    public static @NonNull Dialog createTeamDialog(Component wrongText, Locale userLocale) {
+        Component teamCommandNameLabel = renderToString("gui.menu.createTeam.commandNameLabel", userLocale);
+        Component teamNameLabel = renderToString("gui.menu.createTeam.nameLabel", userLocale);
 
         return Dialog.create(builder -> builder.empty()
-                .base(DialogBase.builder(Component.translatable("gui.menu.createTeam.title"))
+                .base(DialogBase.builder(renderToString("gui.menu.createTeam.title", userLocale))
                         .body(
                                 List.of(
                                         DialogBody.plainMessage(wrongText)
@@ -41,13 +46,13 @@ public class TeamDialogs {
                         .build()
                 ).type(DialogType.confirmation(
                         ActionButton.create(
-                                Component.translatable("gui.menu.buttons.cancel"),
+                                renderToString("gui.menu.buttons.cancel", userLocale),
                                 null,
                                 100,
                                 null // If we set the action to null, it doesn't do anything and closes the dialogue
                         ),
                         ActionButton.create(
-                                Component.translatable("gui.menu.buttons.save"),
+                                renderToString("gui.menu.buttons.save", userLocale),
                                 null,
                                 100,
                                 DialogAction.customClick(TeamDialogCallbacks::acceptNewTeamDialog, ClickCallback.Options.builder()
@@ -59,19 +64,19 @@ public class TeamDialogs {
         );
     }
 
-    public static @NonNull Dialog removeTeamCheck() {
+    public static @NonNull Dialog removeTeamCheck(Locale userLocale) {
         return  Dialog.create(builder -> builder.empty()
-                .base(DialogBase.builder(Component.translatable("gui.menu.removeTeamCheck.title"))
+                .base(DialogBase.builder(renderToString("gui.menu.removeTeamCheck.title", userLocale))
                         .build()
                 ).type(DialogType.confirmation(
                         ActionButton.create(
-                                Component.translatable("gui.menu.removeTeamCheck.save").color(TextColor.color(0xff0000)),
+                                renderToString("gui.menu.removeTeamCheck.cancel", userLocale),
                                 null,
                                 120,
                                 null // If we set the action to null, it doesn't do anything and closes the dialogue
                         ),
                         ActionButton.create(
-                                Component.translatable("gui.menu.removeTeamCheck.cancel").color(TextColor.color(0x00ff00)),
+                                renderToString("gui.menu.removeTeamCheck.save", userLocale),
                                 null,
                                 120,
                                 DialogAction.customClick(TeamDialogCallbacks::acceptRemoveTeamDialog, ClickCallback.Options.builder()
@@ -83,25 +88,25 @@ public class TeamDialogs {
         );
     }
 
-    public static @NonNull Dialog listJoinRequests() {
+    public static @NonNull Dialog listJoinRequests(Locale userLocale) {
         List<DialogInput> inputs = new ArrayList<>();
         // TODO: add request list
         // TODO: First add settings to set team as private
 
         // all players will be listed with boolean selector
         return  Dialog.create(builder -> builder.empty()
-                .base(DialogBase.builder(Component.translatable("gui.menu.listJoinRequest.title"))
+                .base(DialogBase.builder(renderToString("gui.menu.listJoinRequest.title", userLocale))
                         .inputs(inputs)
                         .build()
                 ).type(DialogType.confirmation(
                         ActionButton.create(
-                                Component.translatable("gui.menu.buttons.cancel"),
+                                renderToString("gui.menu.buttons.cancel", userLocale),
                                 null,
                                 100,
                                 null
                         ),
                         ActionButton.create(
-                                Component.translatable("gui.menu.listJoinRequest.save"),
+                                renderToString("gui.menu.listJoinRequest.save", userLocale),
                                 null,
                                 100,
                                 DialogAction.customClick(TeamDialogCallbacks::acceptSelectedRequests, ClickCallback.Options.builder()

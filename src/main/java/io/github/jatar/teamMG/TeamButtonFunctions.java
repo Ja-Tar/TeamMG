@@ -24,7 +24,7 @@ public class TeamButtonFunctions {
     public static void createNewTeam(@NonNull InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         Objects.requireNonNull(event.getClickedInventory()).close();
-        player.showDialog(TeamDialogs.createTeamDialog(Component.text("")));
+        player.showDialog(TeamDialogs.createTeamDialog(Component.text(""), player.locale()));
     }
 
     public static void searchForTeam(@NonNull InventoryClickEvent event) {
@@ -36,7 +36,7 @@ public class TeamButtonFunctions {
     public static void removeTeam(@NonNull InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         Objects.requireNonNull(event.getClickedInventory()).close();
-        player.showDialog(TeamDialogs.removeTeamCheck());
+        player.showDialog(TeamDialogs.removeTeamCheck(player.locale()));
     }
 
     public static void joinRequests(@NonNull InventoryClickEvent event) {
