@@ -20,13 +20,12 @@ import static io.github.jatar.teamMG.TeamMG.mm;
 
 @SuppressWarnings({"UnstableApiUsage"})
 public class TeamDialogs {
-    public static @NonNull Dialog createTeamDialog(String wrongInfo) {
-        Component teamCommandNameLabel = mm.deserialize("ID drużyny (<color:red><bold><underlined>tego nie da się zmienić<reset>, bez spacji)");
-        Component teamNameLabel = mm.deserialize("Nazwa drużyny <i>(pole może być puste)");
-        Component wrongText = mm.deserialize(wrongInfo);
+    public static @NonNull Dialog createTeamDialog(Component wrongText) {
+        Component teamCommandNameLabel = Component.translatable("gui.menu.createTeam.commandNameLabel");
+        Component teamNameLabel = Component.translatable("gui.menu.createTeam.nameLabel");
 
         return Dialog.create(builder -> builder.empty()
-                .base(DialogBase.builder(Component.text("Tworzenie nowej drużyny:", NamedTextColor.GREEN))
+                .base(DialogBase.builder(Component.translatable("gui.menu.createTeam.title"))
                         .body(
                                 List.of(
                                         DialogBody.plainMessage(wrongText)
@@ -45,13 +44,13 @@ public class TeamDialogs {
                         .build()
                 ).type(DialogType.confirmation(
                         ActionButton.create(
-                                Component.text("Anuluj", TextColor.color(0xff0000)),
+                                Component.translatable("gui.menu.buttons.cancel").color(TextColor.color(0xff0000)),
                                 null,
                                 100,
                                 null // If we set the action to null, it doesn't do anything and closes the dialogue
                         ),
                         ActionButton.create(
-                                Component.text("Zapisz", TextColor.color(0x00ff00)),
+                                Component.translatable("gui.menu.buttons.save").color(TextColor.color(0x00ff00)),
                                 null,
                                 100,
                                 DialogAction.customClick(TeamDialogCallbacks::acceptNewTeamDialog, ClickCallback.Options.builder()

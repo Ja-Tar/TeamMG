@@ -21,7 +21,7 @@ public class TeamDialogCallbacks {
             assert teamName != null;
 
             if (!PatternCheckers.isValidCommandName(teamCommandName)) {
-                player.showDialog(TeamDialogs.createTeamDialog("<red>ID drużyny może mieć tylko:</red><newline><b>- + . _ A-Z a-z 0-9</b>"));
+                player.showDialog(TeamDialogs.createTeamDialog(Component.translatable("gui.menu.createTeam.wrongInfo")));
                 return;
             }
 
@@ -30,7 +30,7 @@ public class TeamDialogCallbacks {
                 newTeam = scoreboard.registerNewTeam(teamCommandName);
             } catch (IllegalArgumentException e) {
                 if (e.getMessage().contains("is already in use")) {
-                    getLog().info("Team już istnieje: " + teamCommandName);
+                    getLog().info("Team already exists: " + teamCommandName);
                     player.sendMessage(RichMessagePrefixes.error(Component.translatable("message.acceptNewTeam.idExists", Component.text(teamCommandName))));
                     return;
                 }

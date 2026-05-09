@@ -24,7 +24,7 @@ public class TeamButtonFunctions {
     public static void createNewTeam(@NonNull InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         Objects.requireNonNull(event.getClickedInventory()).close();
-        player.showDialog(TeamDialogs.createTeamDialog(""));
+        player.showDialog(TeamDialogs.createTeamDialog(Component.text("")));
     }
 
     public static void searchForTeam(@NonNull InventoryClickEvent event) {
