@@ -82,11 +82,12 @@ public class TeamInventory {
     }
 
     public static @NonNull InventoryGUI TeamsList(Locale playerLocale) {
-        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.text("Dostępne drużyny:")));
+        InventoryGUI gui = new InventoryGUI(Bukkit.createInventory(null, 27, Component.translatable("gui.inv.teamsList.name")));
 
         PaginationPanel pages = new PaginationPanel(gui);
         pages.addSlots(0, 18); // Add the first two rows of the inventory to the paged panel.
         pages.addPagedButtons(teamsItemStack());
+        // FIXME: all possible strings changed to Component type | REWRITE RED_LIB
         ItemButton next = ItemButton.create(new ItemBuilder(Material.EMERALD_BLOCK).setName("Kolejna strona"), e -> pages.nextPage());
         ItemButton prev = ItemButton.create(new ItemBuilder(Material.EMERALD_BLOCK).setName("Poprzednia strona"), e -> pages.prevPage());
         gui.addButton(next, 18);
